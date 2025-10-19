@@ -1,4 +1,3 @@
-# Shitty 20% side project
 import random
 import csv
 import pandas as pd
@@ -32,7 +31,7 @@ def Login():
       exit(1)
       
         
-# Configuring and Making New Account
+# Configuring and Making a New Account
 def new_account(): 
   new_user = input("New username: ")
   new_pass = input("New password: ")
@@ -198,4 +197,5 @@ elif new_or_existing_account == "3":
 else:
   print("Invalid user input, returning...")
   time.sleep(1)
+
   exit(1)
