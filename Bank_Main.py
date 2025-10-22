@@ -1,4 +1,4 @@
-# Shitty 20% side project
+# Shitty side project
 import random
 import csv
 import pandas as pd
@@ -33,7 +33,7 @@ def Login():
       exit(1)
       
         
-# Configuring and Making New Account
+# Configuring and Making a New Account
 def new_account(): 
   new_user = input("New username: ")
   new_pass = input("New password: ")
