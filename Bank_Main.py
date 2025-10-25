@@ -111,8 +111,6 @@ def existing_account(Username, Password, PIN):
       if amount > 0:
         self.__balance += amount
         print(f"You have deposited ${amount}, New Balance: ${self.__balance}")
-
-        
         file_update.loc[file_update['Username'] == Username, 'Balance'] = self.__balance
         file_update.to_csv("Bank_File.csv", index=False)
       else:
@@ -159,7 +157,7 @@ def existing_account(Username, Password, PIN):
                     2. Withdraw
                     3. Check Balance
                     4. Exit(full exit out of program)\n""")
-  
+
     if not choice:
       print("Invalid number try again...")
       time.sleep(1)
