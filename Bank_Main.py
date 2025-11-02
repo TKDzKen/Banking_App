@@ -15,26 +15,25 @@ def Login():
     return 
   
   max_attempts = 3
-  attempt = 0
-  while attempt < max_attempts:
+  attempts = 0
+  while attempts < max_attempts:
     with open(FILE, 'r') as Bank_File_Verify:
       reader = csv.DictReader(Bank_File_Verify)
       for row in reader:
         if row['Username'] == User and row['Password'] == Pass and row['PIN'] == PIN:
           print("Login successful!")
-          existing_account(User, Pass, PIN)
+          ExistingAccount(User, Pass, PIN)
         
-      attempt += 1
-      print(f"Login failed, attempts made: {attempt}")
+      attempts += 1
+      print(f"Login failed, attempts made: {attempts}")
       return
-    if attempt >= max_attempts:
+    if attempts >= max_attempts:
       print("Too many failed attempts exiting...")
       return None
       exit(1)
       
-        
 # Configuring and Making a New Account
-def new_account(): 
+def NewAccount(): 
   new_user = input("New username: ")
   new_pass = input("New password: ")
   new_pass_verify = input("Verify new password: ")
@@ -44,14 +43,14 @@ def new_account():
     for row in reader:
       if row['Username'] == new_user:
         print("Username is already in use, Please try again...")
-        return new_account()
+        return NewAccount()
       
     with open(FILE, 'r') as Bank_File:
       reader = csv.DictReader(Bank_File)
       for row in reader:
         if row['Password'] == new_pass_verify:
           print("Password is already in use, Please try again...")
-          return new_account()
+          return NewAccount()
     
   while True: 
     if new_pass != new_pass_verify:
@@ -62,7 +61,7 @@ def new_account():
       continue
     
     verify = input(f"Are you sure you want your username to be {new_user} and your password to be {new_pass_verify} (Y/N): ")
-    
+
     if verify in ["Y", "y", "Yes", "yes"]:
       print("Continuing...")
     if verify in ["N", "n", "No", "no"]:
@@ -95,7 +94,7 @@ def new_account():
     exit(0) 
 
 # Existing Account Function
-def existing_account(Username, Password, PIN):
+def ExistingAccount(Username, Password, PIN):
   class Account:
     def __init__(self, Username, Password, PIN, Balance):
       self.Username = Username
@@ -181,19 +180,19 @@ def existing_account(Username, Password, PIN):
       continue
 
 # Main Init
-new_or_existing_account = input("Enter 1 for new account\n 2 for existing account\n 3 to exit\n ")
-
-if new_or_existing_account == "1": 
-  new_account()
-elif new_or_existing_account == "2":
-  User = input("Enter Username: ")
-  Pass = input("Enter Password: ")
-  PIN = input("Enter 6 digit PIN: ")
-  Login()
-elif new_or_existing_account == "3":
-  print("Exiting...")
-  exit(0)
-else:
-  print("Invalid user input, returning...")
-  time.sleep(1)
-  exit(1)
+if __name__ == "__main__":
+  new_or_existing_account = input("Enter 1 for new account\n 2 for existing account\n 3 to exit\n ")
+  if new_or_existing_account == "1": 
+    NewAccount()
+  elif new_or_existing_account == "2":
+    User = input("Enter Username: ")
+    Pass = input("Enter Password: ")
+    PIN = input("Enter 6 digit PIN: ")
+    Login()
+  elif new_or_existing_account == "3":
+    print("Exiting...")
+    exit(0)
+  else:
+    print("Invalid user input, returning...")
+    time.sleep(1)
+    exit(1)
